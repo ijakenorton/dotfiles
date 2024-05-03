@@ -12,4 +12,10 @@ font:
   normal:
     family: "JetBrainsMonoNL Nerd Font"
     style: Regular
-  size: 14.0
+  size: 13.0
+
+\n\nshell:\n program: /bin/zsh\n args:\n - --login\n
+shell:
+  program: /bin/zsh
+  args:
+    - --login

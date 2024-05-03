@@ -34,11 +34,6 @@ local plugins = {
         -- or                              , branch = '0.1.x',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    {
-        'folke/noice.nvim',
-        dependencies = { { 'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify' } }
-
-    },
     -- 'HallerPatrick/py_lsp.nvim',
     --
     -- {
@@ -117,9 +112,6 @@ local plugins = {
                     "vimdoc",
                     "query",
                     "elixir",
-                    "erlang",
-                    "heex",
-                    "eex",
                     "java",
                     "json",
                     "html",
@@ -139,8 +131,6 @@ local plugins = {
     'ThePrimeagen/vim-be-good',
     'mbbill/undotree',
     'jose-elias-alvarez/null-ls.nvim',
-    -- { "rcarriga/nvim-dap-ui",      dependencies = { "mfussenegger/nvim-dap" } },
-    -- { "mxsdev/nvim-dap-vscode-js", dependencies = { "mfussenegger/nvim-dap" } },
     'tpope/vim-fugitive',
     'tpope/vim-commentary',
     {
