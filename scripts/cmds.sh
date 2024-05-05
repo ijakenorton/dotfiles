@@ -1,5 +1,5 @@
 sudo apt update && sudo apt upgrade -y
-sudo apt-get install tmux xclip zsh stow alacritty -y
+sudo apt-get install tmux xclip zoxide fzf zsh stow alacritty -y
 sh ssh_gen.sh
 git submodule update --init --recursive
 echo 'alias clip=xclip -selection c' >> ~/.bashrc
