@@ -6,7 +6,7 @@ window:
     x: 18
     y: 16
   dynamic_padding: false
-  decorations: Full
+  decorations: none
 
 font:
   normal:
