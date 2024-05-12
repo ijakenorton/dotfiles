@@ -73,8 +73,6 @@ ZSH_THEME="arrow"
 plugins=(git
     zsh-autosuggestions
     zsh-syntax-highlighting
-    z
-    asdf
     )
 
 source $ZSH/oh-my-zsh.sh
@@ -104,6 +102,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
  alias zshconfig="nvim ~/.zshrc"
  alias nvc="nvim ~/.config/nvim/"
+ alias vim=nvim
  alias gcdp="git checkout development && git pull"
 
 export PATH=~/bin:$PATH
@@ -126,6 +125,7 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
-unset LD_LIBRARY_PATH
-
+# export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+# export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+# unset LD_LIBRARY_PATH
+eval "$(zoxide init zsh)"

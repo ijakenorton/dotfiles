@@ -1,5 +1,5 @@
 local opt = vim.opt
-opt.guicursor = ""
+-- opt.guicursor = ""
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -13,6 +13,7 @@ opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
+opt.textwidth = 100
 
 opt.smartindent = true
 opt.autoindent = true

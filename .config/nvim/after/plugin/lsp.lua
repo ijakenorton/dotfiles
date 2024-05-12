@@ -77,9 +77,7 @@ local on_attach = lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>ac", function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set({ 'n', 'x' }, 'gq', function()
-        vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
-    end, opts)
+    local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
     if client.supports_method("textDocument/formatting") then
         vim.api.nvim_clear_autocmds({
             group = augroup,
@@ -88,10 +86,11 @@ local on_attach = lsp.on_attach(function(client, bufnr)
         vim.api.nvim_create_autocmd("BufWritePre", {
             group = augroup,
             buffer = bufnr,
-            callback = function ()
-                vim.lsp.buf.format({ bufnr = bufnr})
-                
-            end
+                callback = function ()
+                    if filetype ~= 'c' then
+                        vim.lsp.buf.format({ bufnr = bufnr })
+                    end
+                end
         })
     end
 end)

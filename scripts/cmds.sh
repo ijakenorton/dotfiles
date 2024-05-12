@@ -18,3 +18,4 @@ sudo tailscale up --ssh
 wget https://dl.discordapp.net/apps/linux/0.0.45/discord-0.0.45.deb
 sudo apt install ./discord-0.0.45.deb -y
 rm ./discord-0.0.45.deb
+#https://github.com/th-ch/youtube-music

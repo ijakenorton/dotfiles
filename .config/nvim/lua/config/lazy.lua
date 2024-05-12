@@ -12,16 +12,25 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 local plugins = {
-{
-   "amitds1997/remote-nvim.nvim",
-   version = "*", -- Pin to GitHub releases
-   dependencies = {
-       "nvim-lua/plenary.nvim", -- For standard functions
-       "MunifTanjim/nui.nvim", -- To build the plugin UI
-       "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
-   },
-   config = true,
-},
+
+    'nanotee/zoxide.vim', 
+    'nmac427/guess-indent.nvim',
+    {
+        "j-hui/fidget.nvim",
+        opts = {
+            -- options
+        },
+    },
+    {
+        "amitds1997/remote-nvim.nvim",
+        version = "*",                  -- Pin to GitHub releases
+        dependencies = {
+            "nvim-lua/plenary.nvim",    -- For standard functions
+            "MunifTanjim/nui.nvim",     -- To build the plugin UI
+            "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+        },
+        config = true,
+    },
     "LunarVim/bigfile.nvim",
     "github/copilot.vim",
     {
@@ -123,6 +132,7 @@ local plugins = {
                     "java",
                     "json",
                     "html",
+                    "python",
                     "go",
                     "bash",
                     "markdown",
@@ -134,7 +144,7 @@ local plugins = {
         end,
     },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    "windwp/nvim-autopairs",
+    -- "windwp/nvim-autopairs",
     'theprimeagen/harpoon',
     'ThePrimeagen/vim-be-good',
     'mbbill/undotree',
