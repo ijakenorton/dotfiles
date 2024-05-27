@@ -74,7 +74,12 @@ plugins=(git
     zsh-autosuggestions
     zsh-syntax-highlighting
     )
-
+MODE_CURSOR_VIINS="white blinking bar"
+MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
+MODE_CURSOR_VICMD="white block"
+MODE_CURSOR_SEARCH="#ff00ff steady underline"
+MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
+MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -124,6 +129,8 @@ else
     fi
 fi
 unset __conda_setup
+source "$HOME/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
+bindkey -rpM viins '^[^['
 # <<< conda initialize <<<
 # export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
 # export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
