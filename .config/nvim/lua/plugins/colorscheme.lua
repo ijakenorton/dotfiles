@@ -1,25 +1,199 @@
+-- local spec = require("nightfox.spec").load("terafox")
+-- local palettes = require("nightfox.spec").load()
+-- print(vim.inspect(palettes))
+local gruv_palette = {
+	dark0_hard = "#202020",
+	dark0 = "#212020",
+	dark0_soft = "#32302f",
+	dark1 = "#3c3836",
+	dark2 = "#504945",
+	dark3 = "#665c54",
+	dark4 = "#7c6f64",
+	light0_hard = "#f9f5d7",
+	light0 = "#fbf1c7",
+	light0_soft = "#f2e5bc",
+	light_text = "#debb99",
+	light1 = "#ebdbb2",
+	light2 = "#d5c4a1",
+	light3 = "#bdae93",
+	light4 = "#a89984",
+	bright_red = "#fb4934",
+	bright_green = "#b8bb26",
+	bright_yellow = "#fabd2f",
+	bright_blue = "#83a598",
+	bright_purple = "#d3869b",
+	bright_aqua = "#8ec07c",
+	bright_orange = "#fe8019",
+	neutral_red = "#cc241d",
+	neutral_green = "#98971a",
+	neutral_yellow = "#d79921",
+	neutral_blue = "#458588",
+	neutral_purple = "#b16286",
+	neutral_aqua = "#689d6a",
+	neutral_orange = "#d65d0e",
+	faded_red = "#9d0006",
+	faded_green = "#79740e",
+	faded_yellow = "#b57614",
+	faded_blue = "#076678",
+	faded_purple = "#8f3f71",
+	faded_aqua = "#427b58",
+	faded_orange = "#af3a03",
+	dark_red_hard = "#792329",
+	dark_red = "#722529",
+	dark_orange = "#361404",
+	dark_red_soft = "#7b2c2f",
+	light_red_hard = "#fc9690",
+	light_red = "#fc9487",
+	light_red_soft = "#f78b7f",
+	dark_green_hard = "#5a633a",
+	dark_green = "#62693e",
+	dark_green_soft = "#686d43",
+	light_green_hard = "#d3d6a5",
+	light_green = "#d5d39b",
+	light_green_soft = "#cecb94",
+	dark_aqua_hard = "#3e4934",
+	dark_aqua = "#49503b",
+	dark_aqua_soft = "#525742",
+	light_aqua_hard = "#e6e9c1",
+	light_aqua = "#e8e5b5",
+	light_aqua_soft = "#e1dbac",
+	gray = "#928374",
+	warm_grey = "#422b20",
+}
+local cool_palette = {
+	"#0d2b45",
+	"#203c56",
+	"#544e68",
+	"#8d697a",
+	"#d08159",
+	"#ffaa5e",
+	"#ffd4a3",
+	"#ffecd6",
+}
+local orange_gradient = {
+	orange0 = "#dfd785",
+	orange1 = "#ebc275",
+	orange2 = "#f39949",
+	orange3 = "#ff7831",
+	orange4 = "#ca5a2e",
+	orange5 = "#963c3c",
+	orange6 = "#3a2802",
+	orange7 = "#202215",
+}
+local mushroom = {
+	dark = "#2e222f",
+	dark_purple = "#45293f",
+	faded_red = "#7a3045",
+	neutral_orange = "#993d41",
+	middle_orange = "#cd683d",
+	yellow = "#fbb954",
+	light_bright_green = "#f2ec8b",
+	green_grey = "#b0a987",
+	grey0 = "#997f73",
+	grey1 = "#665964",
+	grey2 = "#443846",
+	grey3 = "#576069",
+	grey4 = "#788a87",
+	grey5 = "#a9b2a2",
+}
 return {
-	-- https://github.com/rebelot/kanagawa.nvim
-	"rebelot/kanagawa.nvim", -- You can replace this with your favorite colorscheme
-	lazy = false, -- We want the colorscheme to load immediately when starting Neovim
-	priority = 1000, -- Load the colorscheme before other non-lazy-loaded plugins
-	opts = {
-		colors = {
-			theme = {
+	"EdenEast/nightfox.nvim",
+	config = function()
+		require("nightfox").setup({
+			options = {
+				-- Compiled file's destination location
+				compile_path = vim.fn.stdpath("cache") .. "/nightfox",
+				compile_file_suffix = "_compiled", -- Compiled file suffix
+				transparent = false, -- Disable setting background
+				terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+				dim_inactive = false, -- Non focused panes set to alternative background
+				module_default = true, -- Default enable value for modules
+				inverse = { -- Inverse highlight for different types
+					match_paren = false,
+					visual = false,
+					search = false,
+				},
+				modules = { -- List of various plugins and additional options
+					-- ...
+				},
+			},
+			palettes = {
+				-- all = {
+				-- 	bg0 = gruv_palette.dark0_hard,
+				-- 	bg1 = gruv_palette.dark0,
+				-- 	bg2 = gruv_palette.light_text,
+				-- 	bg3 = gruv_palette.warm_grey,
+				-- 	bg4 = gruv_palette.gray,
+				-- 	fg0 = gruv_palette.light_text,
+				-- 	fg1 = gruv_palette.light_text,
+				-- 	fg2 = gruv_palette.light_text,
+				-- 	fg3 = gruv_palette.faded_orange,
+				-- },
 				all = {
-					ui = {
-						bg_gutter = "none",
+					bg0 = orange_gradient.orange7,
+					bg1 = orange_gradient.orange7,
+					bg2 = mushroom.faded_red,
+					bg3 = orange_gradient.orange6,
+					bg4 = orange_gradient.orange5,
+					fg0 = orange_gradient.orange1,
+					fg1 = orange_gradient.orange1,
+					fg2 = orange_gradient.orange1,
+					fg3 = mushroom.neutral_orange,
+				},
+			},
+			specs = {
+				all = {
+					-- syntax = {
+					-- 	bracket = "#b6b8bb",
+					-- 	builtin0 = "#ff0000",
+					-- 	builtin1 = "#eda677",
+					-- 	builtin2 = "#114232",
+					-- 	const = gruv_palette.light4,
+					-- 	builtin3 = "#f1b66d",
+					-- 	comment = gruv_palette.gray,
+					-- 	conditional = gruv_palette.neutral_red,
+					-- 	dep = gruv_palette.faded_red,
+					-- 	field = gruv_palette.neutral_orange,
+					-- 	func = gruv_palette.bright_green,
+					-- 	ident = gruv_palette.bright_orange,
+					-- 	keyword = gruv_palette.neutral_red,
+					-- 	number = gruv_palette.bright_yellow,
+					-- 	operator = gruv_palette.light2,
+					-- 	preproc = gruv_palette.bright_yellow,
+					-- 	regex = gruv_palette.bright_orange,
+					-- 	statement = gruv_palette.neutral_purple,
+					-- 	string = gruv_palette.neutral_green,
+					-- 	type = gruv_palette.faded_blue,
+					-- 	variable = gruv_palette.light_text,
+					-- },
+					syntax = {
+						bracket = orange_gradient.orange4,
+						builtin0 = orange_gradient.orange1,
+						builtin1 = "#eda677",
+						builtin2 = "#114232",
+						const = gruv_palette.light4,
+						builtin3 = "#f1b66d",
+						comment = gruv_palette.gray,
+						conditional = gruv_palette.neutral_red,
+						dep = gruv_palette.faded_red,
+						field = gruv_palette.neutral_orange,
+						func = gruv_palette.bright_green,
+						ident = gruv_palette.bright_orange,
+						keyword = gruv_palette.neutral_red,
+						number = gruv_palette.bright_yellow,
+						operator = gruv_palette.light2,
+						preproc = gruv_palette.bright_yellow,
+						regex = gruv_palette.bright_orange,
+						statement = gruv_palette.neutral_purple,
+						string = gruv_palette.neutral_green,
+						type = gruv_palette.faded_blue,
+						variable = gruv_palette.light_text,
 					},
 				},
 			},
-		},
-		transparent = true,
-		background = {
-			dark = "dragon", -- "wave, dragon"
-		},
-	},
-	config = function(_, opts)
-		require("kanagawa").setup(opts) -- Replace this with your favorite colorscheme
-		vim.cmd("colorscheme kanagawa") -- Replace this with your favorite colorscheme
+			groups = {},
+		})
+
+		vim.cmd("colorscheme terafox")
 	end,
 }
