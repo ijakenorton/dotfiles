@@ -1,4 +1,3 @@
-local nonicons_extention = require("nvim-nonicons.extentions.nvim-tree")
 
 local function my_on_attach(bufnr)
     local api = require "nvim-tree.api"
@@ -18,10 +17,16 @@ local function my_on_attach(bufnr)
     vim.api.nvim_set_keymap('n', '<C-p>', ':NvimTreeResize +5<CR>', { noremap = true, silent = true })
     -- local api = require "nvim-tree.api"
 end
+-- File Explorer / Tree
+return {
+  -- https://github.com/nvim-tree/nvim-tree.lua
+  'nvim-tree/nvim-tree.lua',
+  dependencies = {
+    -- https://github.com/nvim-tree/nvim-web-devicons
+    'nvim-tree/nvim-web-devicons', -- Fancy icon support
+  },
 
-vim.keymap.set('n', '<C-b>', ':NvimTreeOpen<cr>', { noremap = true, silent = true })
--- pass to setup along with your other options
-require("nvim-tree").setup({
+  opts = {
     on_attach = my_on_attach,
     view = {
         width = 35,
@@ -47,7 +52,6 @@ require("nvim-tree").setup({
                 modified = false,
                 folder_arrow = false,
             },
-            glyphs = nonicons_extention.glyphs,
         },
     },
     filters = {
@@ -70,26 +74,12 @@ require("nvim-tree").setup({
             },
         },
     },
-})
--- config = function()
---      require("nvim-tree").setup({
---        filters = {
---          custom = { "\\.git$", "\\.pyc$", "__pycache__" },
---        },
---        renderer = {
---          special_files = {},
---          icons = {
---            show = {
---              folder_arrow = false,
---            },
---            glyphs = {
---              default = "",
---              folder = {
---                default = "",
---                open = "",
---                empty = "",
---                empty_open = "",
---              },
---            },
---          },
---        },
+},
+  config = function (_, opts)
+    -- Recommended settings to disable default netrw file explorer
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
+    require("nvim-tree").setup(opts)
+  end
+}
+

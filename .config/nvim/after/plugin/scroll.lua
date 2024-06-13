@@ -1,2 +1,0 @@
-require('scrollEOF').setup()
-
