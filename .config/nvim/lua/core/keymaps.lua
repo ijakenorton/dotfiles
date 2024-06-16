@@ -1,15 +1,80 @@
--- Set leader key to space
 vim.g.mapleader = " "
+
+local function tprint(tbl, indent)
+	if not indent then
+		indent = 0
+	end
+	for k, v in pairs(tbl) do
+		local formatting = string.rep("  ", indent) .. k .. ": "
+		if type(v) == "table" then
+			print(formatting)
+			tprint(v, indent + 1)
+		elseif type(v) == "boolean" then
+			print(formatting .. tostring(v))
+		else
+			print(formatting .. v)
+		end
+	end
+end
 
 local keymap = vim.keymap
 --movement
 keymap.set("n", "<c-d>", "<c-d>zz")
 keymap.set("n", "<c-u>", "<c-u>zz")
-keymap.set("x", "<leader>p", [["_dp]])
+-- keymap.set("x", "<leader>p", [["_dp]])
 keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 keymap.set("n", "<leader>y", [["+y]])
 keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+keymap.set("n", "<leader>sc", function()
+	local command = ":let g:custom_command = "
+	if vim.g.custom_command == nil then
+		local new_command = (vim.fn.input("command > ", "'" .. vim.fn.expand("%"), "file_in_path"))
+		command = command .. new_command
+		vim.cmd(command)
+	else
+		local new_command = (vim.fn.input("command > ", "'" .. vim.g.custom_command, "file_in_path"))
+		command = command .. new_command
+		vim.cmd(command)
+	end
+end)
+
+keymap.set("n", "<leader><leader>", function()
+	local command = {}
+	local current_command = "Current command: "
+	if vim.g.custom_command == nil then
+		vim.g.custom_command = vim.fn.expand("%")
+		command = { vim.g.custom_command }
+		current_command = current_command .. command[1]
+	else
+		for word in vim.g.custom_command:gmatch("%S+") do
+			if word == "%" then
+				word = vim.fn.expand("%")
+			end
+			table.insert(command, word)
+			current_command = current_command .. " " .. word
+		end
+	end
+	local append_data = function(_, data)
+		if data then
+			print("more data")
+			vim.api.nvim_buf_set_lines(0, -1, -1, false, data)
+		end
+	end
+	local buffer = vim.g.custom_buffer
+
+	if vim.g.custom_buffer == nil then
+		buffer = vim.api.nvim_create_buf(false, true)
+	end
+
+	vim.api.nvim_open_win(buffer, true, {
+		win = 0,
+		vertical = false,
+	})
+
+	vim.api.nvim_buf_set_lines(buffer, 0, -1, false, { current_command })
+	vim.fn.jobstart(command, { stdout_buffered = true, on_stdout = append_data, on_stderr = append_data })
+end)
 keymap.set("n", "<leader>rp", function()
 	-- Run the python command on the current file and capture the output
 	local output = vim.fn.system("python " .. vim.fn.expand("%"))

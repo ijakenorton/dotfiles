@@ -31,7 +31,14 @@ return {
 			local servers = {
 				texlab = true,
 				bashls = true,
-				lua_ls = true,
+				lua_ls = {
+					server_capabilities = {
+						semanticTokensProvider = vim.NIL,
+					},
+					diagnostics = {
+						globals = { "vim" },
+					},
+				},
 				pyright = true,
 				jsonls = {
 					settings = {
@@ -92,10 +99,15 @@ return {
 				callback = function(args)
 					local bufnr = args.buf
 					local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
+					local settings = servers[client.name]
+					if type(settings) ~= "table" then
+						settings = {}
+					end
 
+					local builtin = require("telescope.builtin")
 					vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
-					vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = 0 })
+					vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = 0 })
+					vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = 0 })
 					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
 					vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
@@ -106,9 +118,49 @@ return {
 					if disable_semantic_tokens[filetype] then
 						client.server_capabilities.semanticTokensProvider = nil
 					end
+					if settings.server_capabilities then
+						for k, v in pairs(settings.server_capabilities) do
+							if v == vim.NIL then
+								---@diagnostic disable-next-line: cast-local-type
+								v = nil
+							end
+
+							client.server_capabilities[k] = v
+						end
+					end
 				end,
 			})
+			require("lspconfig").lua_ls.setup({
+				on_init = function(client)
+					local path = client.workspace_folders[1].name
+					if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+						return
+					end
 
+					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+						runtime = {
+							-- Tell the language server which version of Lua you're using
+							-- (most likely LuaJIT in the case of Neovim)
+							version = "LuaJIT",
+						},
+						-- Make the server aware of Neovim runtime files
+						workspace = {
+							checkThirdParty = false,
+							library = {
+								vim.env.VIMRUNTIME,
+								-- Depending on the usage, you might want to add additional paths here.
+								-- "${3rd}/luv/library"
+								-- "${3rd}/busted/library",
+							},
+							-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+							-- library = vim.api.nvim_get_runtime_file("", true)
+						},
+					})
+				end,
+				settings = {
+					Lua = {},
+				},
+			})
 			-- Autoformatting Setup
 			require("conform").setup({
 				formatters_by_ft = {

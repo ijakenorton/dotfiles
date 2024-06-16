@@ -180,7 +180,7 @@ return {
 						builtin2 = mushroom.green_grey,
 						const = gruv_palette.light4,
 						builtin3 = orange_gradient.orange1,
-						comment = gruv_palette.gray,
+						comment = mushroom.grey3,
 						conditional = mushroom.middle_orange,
 						dep = gruv_palette.faded_red,
 						field = gruv_palette.neutral_orange,
