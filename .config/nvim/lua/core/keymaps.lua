@@ -23,6 +23,7 @@ keymap.set("n", "<c-d>", "<c-d>zz")
 keymap.set("n", "<c-u>", "<c-u>zz")
 -- keymap.set("x", "<leader>p", [["_dp]])
 keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+keymap.set("n", ",", "o<esc>")
 keymap.set("n", "<leader>y", [["+y]])
 keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
@@ -57,7 +58,6 @@ keymap.set("n", "<leader><leader>", function()
 	end
 	local append_data = function(_, data)
 		if data then
-			print("more data")
 			vim.api.nvim_buf_set_lines(0, -1, -1, false, data)
 		end
 	end
@@ -75,19 +75,7 @@ keymap.set("n", "<leader><leader>", function()
 	vim.api.nvim_buf_set_lines(buffer, 0, -1, false, { current_command })
 	vim.fn.jobstart(command, { stdout_buffered = true, on_stdout = append_data, on_stderr = append_data })
 end)
-keymap.set("n", "<leader>rp", function()
-	-- Run the python command on the current file and capture the output
-	local output = vim.fn.system("python " .. vim.fn.expand("%"))
 
-	-- Create a new buffer
-	vim.cmd("new")
-
-	-- Set the buffer type to 'nofile' (scratch buffer)
-	vim.bo.buftype = "nofile"
-
-	-- Insert the output into the buffer
-	vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(output, "\n"))
-end)
 keymap.set("n", "gl", ":lua vim.diagnostic.open_float()<CR>", { silent = true })
 
 -- Split window management

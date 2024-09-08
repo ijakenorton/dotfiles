@@ -29,6 +29,7 @@ return {
 			local lspconfig = require("lspconfig")
 
 			local servers = {
+				clangd = true,
 				texlab = true,
 				bashls = true,
 				lua_ls = {
@@ -161,6 +162,8 @@ return {
 					Lua = {},
 				},
 			})
+
+			-- require("lspconfig").clangd.setup({})
 			-- Autoformatting Setup
 			require("conform").setup({
 				formatters_by_ft = {
