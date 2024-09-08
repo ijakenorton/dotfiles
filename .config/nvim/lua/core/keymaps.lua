@@ -18,6 +18,17 @@ local function tprint(tbl, indent)
 end
 
 local keymap = vim.keymap
+
+vim.api.nvim_create_user_command(
+	"Gp", -- string
+	function()
+		vim.cmd("Git push origin main")
+	end,
+	{
+		nargs = 0,
+		desc = "Git push origin main",
+	}
+)
 --movement
 keymap.set("n", "<c-d>", "<c-d>zz")
 keymap.set("n", "<c-u>", "<c-u>zz")
@@ -173,11 +184,7 @@ keymap.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 keymap.set("n", "<leader>gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
 keymap.set("n", "<leader>rr", "<cmd>lua vim.lsp.buf.rename()<CR>")
 keymap.set("n", "<leader>gf", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
-keymap.set("v", "<leader>gf", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
 keymap.set("n", "<leader>ga", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-keymap.set("n", "<leader>gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
-keymap.set("n", "<leader>gp", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
-keymap.set("n", "<leader>gn", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 keymap.set("n", "<leader>tr", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
 keymap.set("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>")
 
