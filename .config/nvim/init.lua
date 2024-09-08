@@ -22,7 +22,12 @@ require("lazy").setup("plugins", {
 		notify = false, -- turn off notifications whenever plugin changes are made
 	},
 })
-vim.cmd.colorscheme("darkearth")
 -- These modules are not loaded by lazy
 require("core.options")
 require("core.keymaps")
+require("core.color")
+
+-- local callback = function()
+-- 	vim.cmd.colorscheme("darkearth")
+-- end
+-- vim.wait(1000, callback)

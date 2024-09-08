@@ -29,7 +29,6 @@ return {
 			local lspconfig = require("lspconfig")
 
 			local servers = {
-				clangd = true,
 				texlab = true,
 				bashls = true,
 				clangd = true,
