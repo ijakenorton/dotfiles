@@ -32,6 +32,7 @@ return {
 				clangd = true,
 				texlab = true,
 				bashls = true,
+				clangd = true,
 				lua_ls = {
 					server_capabilities = {
 						semanticTokensProvider = vim.NIL,
