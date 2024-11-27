@@ -38,66 +38,58 @@ keymap.set("n", ",", "o<esc>")
 keymap.set("n", "<leader>y", [["+y]])
 keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-keymap.set("n", "<leader>sc", function()
-	local command = ":let g:custom_command = "
-	if vim.g.custom_command == nil then
-		local new_command = (vim.fn.input("command > ", "'" .. vim.fn.expand("%"), "file_in_path"))
-		command = command .. new_command
-		vim.cmd(command)
-	else
-		local new_command = (vim.fn.input("command > ", "'" .. vim.g.custom_command, "file_in_path"))
-		command = command .. new_command
-		vim.cmd(command)
-	end
-end)
+-- keymap.set("n", "<leader>sc", function()
+-- 	local command = ":let g:custom_command = "
+-- 	if vim.g.custom_command == nil then
+-- 		local new_command = (vim.fn.input("command > ", "'" .. vim.fn.expand("%"), "file_in_path"))
+-- 		command = command .. new_command
+-- 		vim.cmd(command)
+-- 	else
+-- 		local new_command = (vim.fn.input("command > ", "'" .. vim.g.custom_command, "file_in_path"))
+-- 		command = command .. new_command
+-- 		vim.cmd(command)
+-- 	end
+-- end)
+keymap.set("n", "<M-m>", "@q")
 
-keymap.set("n", "<leader><leader>", function()
-	local command = {}
-	local current_command = "Current command: "
-	if vim.g.custom_command == nil then
-		vim.g.custom_command = vim.fn.expand("%")
-		command = { vim.g.custom_command }
-		current_command = current_command .. command[1]
-	else
-		for word in vim.g.custom_command:gmatch("%S+") do
-			if word == "%" then
-				word = vim.fn.expand("%")
-			end
-			table.insert(command, word)
-			current_command = current_command .. " " .. word
-		end
-	end
-	local append_data = function(_, data)
-		if data then
-			vim.api.nvim_buf_set_lines(0, -1, -1, false, data)
-		end
-	end
-	local buffer = vim.g.custom_buffer
+keymap.set("n", "<leader><leader>", ":Make<CR>")
+-- keymap.set("n", "<leader><leader>", function()
+-- 	local command = {}
+-- 	local current_command = "Current command: "
+-- 	if vim.g.custom_command == nil then
+-- 		vim.g.custom_command = vim.fn.expand("%")
+-- 		command = { vim.g.custom_command }
+-- 		current_command = current_command .. command[1]
+-- 	else
+-- 		for word in vim.g.custom_command:gmatch("%S+") do
+-- 			if word == "%" then
+-- 				word = vim.fn.expand("%")
+-- 			end
+-- 			table.insert(command, word)
+-- 			current_command = current_command .. " " .. word
+-- 		end
+-- 	end
+-- 	local append_data = function(_, data)
+-- 		if data then
+-- 			vim.api.nvim_buf_set_lines(0, -1, -1, false, data)
+-- 		end
+-- 	end
+-- 	local buffer = vim.g.custom_buffer
 
-	if vim.g.custom_buffer == nil then
-		buffer = vim.api.nvim_create_buf(false, true)
-	end
+-- 	if vim.g.custom_buffer == nil then
+-- 		buffer = vim.api.nvim_create_buf(false, true)
+-- 	end
 
-	vim.api.nvim_open_win(buffer, true, {
-		win = 0,
-		vertical = false,
-	})
+-- 	vim.api.nvim_open_win(buffer, true, {
+-- 		win = 0,
+-- 		vertical = false,
+-- 	})
 
-	vim.api.nvim_buf_set_lines(buffer, 0, -1, false, { current_command })
-	vim.fn.jobstart(command, { stdout_buffered = true, on_stdout = append_data, on_stderr = append_data })
-end)
+-- 	vim.api.nvim_buf_set_lines(buffer, 0, -1, false, { current_command })
+-- 	vim.fn.jobstart(command, { stdout_buffered = true, on_stdout = append_data, on_stderr = append_data })
+-- end)
 
 keymap.set("n", "gl", ":lua vim.diagnostic.open_float()<CR>", { silent = true })
-
--- Split window management
-keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
-keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
-keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width
-keymap.set("n", "<leader>sx", ":close<CR>") -- close split window
-keymap.set("n", "<leader>sj", "<C-w>-") -- make split window height shorter
-keymap.set("n", "<leader>sk", "<C-w>+") -- make split windows height taller
-keymap.set("n", "<leader>sl", "<C-w>>5") -- make split windows width bigger
-keymap.set("n", "<leader>sh", "<C-w><5") -- make split windows width smaller
 
 -- Tab management
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- open a new tab
@@ -125,7 +117,7 @@ keymap.set("n", "<leader>qc", ":cclose<CR>") -- close quickfix list
 keymap.set("n", "<leader>m", ":MaximizerToggle<CR>") -- toggle maximize tab
 
 -- Nvim-tree
-keymap.set("n", "<C-b>", ":NvimTreeOpen<cr>", { noremap = true, silent = true })
+keymap.set("n", "<C-b>", ":Oil<cr>", { noremap = true, silent = true })
 keymap.set("n", "<leader>ef", ":NvimTreeFindFile<CR>") -- find file in file explorer
 
 -- Telescope
@@ -146,22 +138,22 @@ keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>") -- toggle git blame
 -- Harpoon
 keymap.set("n", "<leader>ha", require("harpoon.mark").add_file)
 keymap.set("n", "<leader>hh", require("harpoon.ui").toggle_quick_menu)
-keymap.set("n", "<leader>h1", function()
+keymap.set("n", "<leader>hs", function()
 	require("harpoon.ui").nav_file(1)
 end)
-keymap.set("n", "<leader>h2", function()
+keymap.set("n", "<leader>hd", function()
 	require("harpoon.ui").nav_file(2)
 end)
-keymap.set("n", "<leader>h3", function()
+keymap.set("n", "<leader>hf", function()
 	require("harpoon.ui").nav_file(3)
 end)
-keymap.set("n", "<leader>h4", function()
+keymap.set("n", "<leader>hj", function()
 	require("harpoon.ui").nav_file(4)
 end)
-keymap.set("n", "<leader>h5", function()
+keymap.set("n", "<leader>hk", function()
 	require("harpoon.ui").nav_file(5)
 end)
-keymap.set("n", "<leader>h6", function()
+keymap.set("n", "<leader>hl", function()
 	require("harpoon.ui").nav_file(6)
 end)
 keymap.set("n", "<leader>h7", function()

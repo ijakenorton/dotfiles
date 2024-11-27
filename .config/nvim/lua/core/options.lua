@@ -1,7 +1,13 @@
 local opt = vim.opt
 -- Session Management
 opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-
+vim.cmd("set iskeyword-=_")
+vim.cmd("set iskeyword-=-")
+vim.opt.swapfile = false
+vim.o.ttimeoutlen = 100
+vim.o.sidescroll = 1
+vim.o.sidescrolloff = 2
+vim.o.autoread = true
 -- Line Numbers
 opt.relativenumber = true
 opt.number = true
