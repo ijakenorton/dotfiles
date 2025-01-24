@@ -1,11 +1,12 @@
 if status is-interactive
     abbr --add fconfig nvim ~/.config/fish/config.fish
+    abbr --add gconfig nvim ~/.config/ghostty/config
     abbr --add nvc nvim ~/.config/nvim/
     abbr --add zconfig nvim ~/.config/zellij/
     abbr --add breakout zellij --layout ~/.config/zellij/config/layout/breakout.kdl
     abbr --add physics zellij --layout ~/.config/zellij/config/layout/physics.kdl
     abbr --add research zellij --layout ~/.config/zellij/config/layout/research.kdl
-    abbr --add paper zellij --layout ~/.config/zellij/config/layout/paper.kdl
+    abbr --add papers zellij --layout ~/.config/zellij/config/layout/papers.kdl
     # Commands to run in interactive sessions can go here
 end
 
@@ -23,3 +24,4 @@ else
 end
 # <<< conda initialize <<<
 
+/home/jaken/.local/bin/mise activate fish | source
