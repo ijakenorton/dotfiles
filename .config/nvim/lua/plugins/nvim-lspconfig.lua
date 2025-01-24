@@ -165,6 +165,9 @@ return {
 					Lua = {},
 				},
 			})
+			require("lspconfig").elixirls.setup({
+				cmd = { "/home/jaken/.local/share/nvim/mason/bin/elixir-ls" },
+			})
 
 			-- require("lspconfig").clangd.setup({})
 			-- Autoformatting Setup
