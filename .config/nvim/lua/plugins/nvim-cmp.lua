@@ -42,8 +42,8 @@ return {
 					luasnip.lsp_expand(args.body)
 				end,
 			},
-			-- completion = { completeopt = 'menu,menuone,noinsert' },
-			completion = { autocomplete = false },
+			-- completion = { completeopt = "menu,menuone,noinsert" },
+			-- completion = { autocomplete = false },
 			mapping = cmp.mapping.preset.insert({
 
 				["<C-n>"] = cmp.mapping.select_next_item(),
