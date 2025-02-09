@@ -1,0 +1,22 @@
+layout {
+    cwd "~/personal/shell"
+    tab name="Tab #1" focus=true hide_floating_panes=true{
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        pane command="fish" cwd="~/personal/shell" focus=true {
+            args "-c" "nvim .; exec fish"
+        }
+        pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+        floating_panes {
+            pane command="zellij"  {
+                height 26
+                width 116
+                x 58
+                y 14
+            }
+        }
+    }
+}
