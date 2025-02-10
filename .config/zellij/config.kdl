@@ -38,7 +38,11 @@ keybinds clear-defaults=true {
 		bind "p" { SwitchFocus; SwitchToMode "Normal"; }
 		bind "n" { NewPane "Right"; SwitchToMode "Normal"; }
 		bind "d" { NewPane "Down"; SwitchToMode "Normal"; }
+<<<<<<< HEAD
 		bind "r" { MovePane "Right"; SwitchToMode "Normal"; }
+=======
+		bind "r" { NewPane "Right"; SwitchToMode "Normal"; }
+>>>>>>> ac82f0e (Minor zellij changes)
 		bind "x" { CloseFocus; SwitchToMode "Normal"; }
 		bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
 		bind "f" { TogglePaneFrames; SwitchToMode "Normal"; }
@@ -209,7 +213,7 @@ simplifie_ui true
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 //
-// default_shell "fish"
+default_shell "fish"
 
 // Toggle between having pane frames around the panes
 // Options:

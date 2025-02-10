@@ -1,7 +1,7 @@
 layout {
-    cwd "~/Documents/research/cvss_prediction/"
-    tab focus=true name="Research"{  
-        pane close_on_exit=true{
+    cwd "~/personal/shell"
+    tab focus=true name="Shell"{  
+        pane {
             command "nvim" 
             args "."
         } 
