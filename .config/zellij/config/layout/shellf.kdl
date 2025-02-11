@@ -11,7 +11,7 @@ layout {
             plugin location="zellij:status-bar"
         }
         floating_panes {
-            pane command="zellij"  {
+            pane {
                 height 26
                 width 116
                 x 58
